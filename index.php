@@ -1,8 +1,9 @@
 <?php
 #front controller
 
-include "bootstrap/init.php";
 
+
+include "bootstrap/init.php";
 
 
 
