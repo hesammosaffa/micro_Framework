@@ -8,6 +8,7 @@ class Request
     private $agent;
     private $ip;
     private $methode;
+    private $uri;
 
     public function __construct()
     {
@@ -15,13 +16,14 @@ class Request
         $this->methode = $_SERVER['REQUEST_METHOD'];
         $this->ip = $_SERVER['REMOTE_ADDR'];
         $this->params = $_REQUEST; # POST & GET
+        $this->uri = strtok($_SERVER['REQUEST_URI'],'?');
     }
 
     public function __get($name)
     {
       if($this->isset($name))
     return $this->input($name);
-     else return "property does not exist";
+     else return  "property does not exist";
     }
 
     public function getMethode()
@@ -42,6 +44,11 @@ class Request
     public function getParams()
     {
         return $this->params;
+    }
+
+    public function getUri()
+    {
+        return $this->uri;
     }
 
     public function input($key)

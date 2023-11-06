@@ -11,6 +11,7 @@ class StupidRouter
     public function __construct($_basepath)
     {
         $this->routers = [
+            '/' => '/views/home/index.php',
             '/color/blue' => '/views/colors/blue.php',
             '/color/red' => '/views/colors/red.php',
             '/color/green' => '/views/colors/green.php'
