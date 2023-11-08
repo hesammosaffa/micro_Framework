@@ -4,6 +4,7 @@ namespace App\Core\Routing;
 
 
 use App\Core\Request;
+use App\Middleware\BlockIp;
 use App\Utilities\Asset;
 
 class Router
@@ -18,11 +19,35 @@ class Router
         $this->request = new Request();
         $this->routes = Route::getRoutes();
         $this->current_route = $this->findRoute($this->request) ?? null;
+        # run middleware here
+        $this->global_middleware();
+      //  $this->run_route_middleware();
     }
 
     public function __destruct()
     {
     }
+
+    private function global_middleware()
+    {
+        $globalMiddalewareObj = new BlockIp();
+        $globalMiddalewareObj->handle();
+    }
+
+    private function run_route_middleware()
+    {
+        $middlewares = $this->current_route['middleware'];
+
+        if (!is_null($middlewares)) {
+            foreach ($middlewares as $key => $middleware_class) {
+                if (class_exists($middleware_class)) {
+                    $middleware_obj = new $middleware_class();
+                    $middleware_obj->handle();
+                }
+            }
+        }
+    }
+
 
     private function findRoute(Request $request)
     {
@@ -69,6 +94,7 @@ class Router
 
     private function dispatch($route)
     {
+
         $action = $route['action'];
         # action : null
         if (is_null($action) || empty($action)) {

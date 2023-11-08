@@ -12,3 +12,4 @@ $request = new Request;
 
 include BASE_PATH."/helpers/helpers.php";
 include BASE_PATH."/routes/web.php";
+
