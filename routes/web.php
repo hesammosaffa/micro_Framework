@@ -2,18 +2,19 @@
 
 use App\Core\Routing\Route;
 
-Route::get('/null');
+//Route::get('/null');
 
-Route::get('/', function () {
+Route::add(['POST','GET'],'/a', function () {
     echo "Welcome!";
 });
 
-Route::post('/saveForm', function () {
+Route::get('/b', function () {
     echo "save ok!";
 });
 
-Route::put('/pururi', "Controller@Method");
+Route::get('/', "HomeController@index");
 
-Route::get('/pururi', "Controller","Method");
+Route::put('/c', "Controller@Method");
 
-var_dump(Route::getRoutes());
+Route::get('/d', "Controller","Method");
+
