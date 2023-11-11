@@ -6,6 +6,7 @@ namespace App\Core\Routing;
 use App\Core\Request;
 use App\Middleware\BlockIp;
 use App\Utilities\Asset;
+use App\Utilities\Dump;
 
 class Router
 {
@@ -20,7 +21,7 @@ class Router
         $this->routes = Route::getRoutes();
         $this->current_route = $this->findRoute($this->request) ?? null;
         # run middleware here
-        $this->global_middleware();
+       // $this->global_middleware();
       //  $this->run_route_middleware();
     }
 
@@ -48,22 +49,46 @@ class Router
         }
     }
 
-
     private function findRoute(Request $request)
-    {
+    { //in_array($request->getMethode(), $route['methods']) && $this->regex_matched($route)
         foreach ($this->routes as $route) {
-
-            if ($request->getUri() == $route['uri']) {
-                //echo $route['uri'];
-                if (in_array($request->getMethode(), $route['methods'])) {
-                    return $route;
-                } else {
-                    return "405";
+                if ( $this->regex_matched($route)  ) {
+                    if($this->invalid_request($request ,$route)){
+                        return $route;
+                    } else{
+                        return "405";
+                    }
                 }
-            }
         }
         return null;
     }
+
+private function invalid_request($request , $route)
+{
+    if($request->getMethode() == $route['methods'][0] ){
+        return true;
+    }
+    return false;
+}
+
+public function regex_matched($route)
+{
+    global $request;
+    $pattern = "/^". str_replace(['/','{','}'],['\/','(?<','>[-%\w]+)'],$route['uri']) . '$/'; 
+    $result = preg_match($pattern,$this->request->getUri(),$matchs);
+    if(!$result){
+        return false;
+        echo "false";
+    }
+
+    foreach ($matchs as $key => $value) {
+        if(!is_int($key)){
+            $request->add_route_param($key,$value);
+        }
+    }  
+    return true;
+
+}
 
     public function run()
     {

@@ -11,6 +11,9 @@ Route::get('/archive',"ArchiveController@index");
 Route::get('/archive/articles',"ArchiveController@articles");
 Route::get('/archive/products',"ArchiveController@products");
 
+Route::get('/post/{slug}',"PostController@single");
+Route::get('/post/{slug}/comment/{cid}',"PostController@single");
+
 
 Route::add(['POST','GET'],'/a', function () {
     echo "Welcome!";

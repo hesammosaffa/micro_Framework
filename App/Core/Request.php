@@ -5,6 +5,7 @@ namespace App\Core;
 class Request
 {
     private $params;
+    private $route_params;
     private $agent;
     private $ip;
     private $methode;
@@ -17,6 +18,21 @@ class Request
         $this->ip = $_SERVER['REMOTE_ADDR'];
         $this->params = $_REQUEST; # POST & GET
         $this->uri = strtok($_SERVER['REQUEST_URI'],'?');
+    }
+
+    public function add_route_param($key,$value)
+    {
+        $this->route_params[$key] = $value;
+    }
+
+    public function get_route_param($key)
+    {
+       return $this->route_params[$key];
+    }
+
+    public function get_route_params()
+    {
+       return $this->route_params;
     }
 
     public function __get($name)
@@ -66,4 +82,6 @@ class Request
         header("Location: " . site_url($route));
         die();
     }
+
+
 }
