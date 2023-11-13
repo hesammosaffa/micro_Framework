@@ -34,6 +34,7 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
         ),
         'M' => 
         array (
+            'Medoo\\' => 6,
             'MaxMind\\WebService\\' => 19,
             'MaxMind\\Exception\\' => 18,
             'MaxMind\\Db\\' => 11,
@@ -91,6 +92,10 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
         'PhpOption\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
+        ),
+        'Medoo\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/catfan/medoo/src',
         ),
         'MaxMind\\WebService\\' => 
         array (

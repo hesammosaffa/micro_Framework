@@ -15,11 +15,16 @@ abstract class BaseModel implements CrudInterface
     {
     }
 
-    protected function getAttrubite($key)
+    public function getAttrubite($key)
     {
         if (!$key || !array_key_exists($key, $this->attributes)) {
             return null;
         }
         return $this->attributes[$key];
+    }
+
+    public function getAttrubites()
+    {
+        return $this->attributes;
     }
 }

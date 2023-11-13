@@ -12,7 +12,7 @@ interface CrudInterface
    public function get(array $columns,array $where) : array;
 
    #Update records
-   public function update(array $columns,array $where) : int;
+   public function update(array $data,array $where) : int;
 
    #Delete
    public function delete(array $where) : int; 
